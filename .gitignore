@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+TestResults/
+
+# SQLite
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Node
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+vite.config.ts.timestamp-*
+
+# Environment
+.env
+.env.local
+.env.*.local

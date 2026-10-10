@@ -1,0 +1,35 @@
+services:
+  api:
+    build:
+      context: ./backend
+    container_name: userdirectory-api
+    ports:
+      - "5080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      Database__Path: /data/app.db
+      Database__SeedSampleData: "true"
+      Cors__AllowedOrigins__0: http://localhost:5173
+    volumes:
+      - api-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:5080
+    container_name: userdirectory-web
+    ports:
+      - "5173:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  api-data:

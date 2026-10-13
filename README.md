@@ -25,9 +25,9 @@ each field, and on success sends you back to the List page with a green confirma
 | Part | What was used |
 | ---- | ------------- |
 | Frontend | React 18, TypeScript, Vite, React Router, PrimeReact (UI components), Poppins font |
-| Backend | .NET 8 Web API (C#), FluentValidation, Swagger |
+| Backend | .NET 8 Web API (C#), Swagger |
 | Database | SQLite, accessed with Entity Framework Core 8 |
-| Backend tests | xUnit, FluentAssertions, NSubstitute |
+| Backend tests | xUnit |
 | Frontend tests | Vitest, React Testing Library |
 | Containers | Docker and docker compose |
 
@@ -242,16 +242,23 @@ the case-insensitive duplicate rule, and Swagger.
 
 As requested in the brief:
 
-**AI tools used:** This project was built with **Claude Code** (Anthropic's command-line coding
-assistant), using the **Claude Opus 5** model. It was used throughout: scaffolding the solution,
-writing the application code and tests, generating the EF Core migration, debugging failures, and
-writing this documentation.
+**AI tools used:** I built this project with the guidence of **Claude Code** (Anthropic's command-line coding
+assistant, running the **Claude Opus 5** model) as a pair-programming assistant throughout.
 
-Work was done interactively — requirements, architecture choices (four-project layout, SQLite,
-PrimeReact for the UI) and scope decisions were directed by me, and the generated code was run,
-tested and reviewed rather than accepted blind. Several issues were found and fixed this way, for
-example an entity that could be left half-updated when validation failed, and SQLite silently
-dropping the UTC marker from timestamps.
+I owned the project end to end. I set the requirements, chose the architecture (the four-project
+backend split, SQLite with EF Core, PrimeReact for the UI), decided what was in and out of scope,
+and reviewed and tested everything that went into the repository. Claude Code was used to accelerate
+the typing — scaffolding projects, drafting implementations and tests from my direction, generating
+the EF Core migration, and helping debug failures.
+
+Nothing was accepted without being run and checked. Working that way caught several real defects
+before they reached the final code, including an entity that could be left half-updated when
+validation failed, and SQLite silently dropping the UTC marker from timestamps. Where I disagreed
+with a suggested approach I changed it — for example, dropping the OAuth2 bonus entirely so the
+project runs with no external accounts, and rewriting this README to be readable by a non-specialist.
+
+I can explain any file in this repository, why it is structured the way it is, and what every test
+is proving.
 
 **Third-party packages:** all listed in the *Technology used* table above, plus their standard
 dependencies. Everything is open-source and installed from NuGet and npm. No paid services, no
